@@ -27,7 +27,7 @@ var model = new Cesium.ProviderViewModel({
     tooltip: "Nighttime view of the Earth, collected by the Suomi NPP satellite in 2012",
     creationFunction: function () {
         return Cesium.createTileMapServiceImageryProvider({
-            url: 'https://fasiha.github.io/nasa-black-marble-tiles',
+            url: '//fasiha.github.io/nasa-black-marble-tiles',
             credit: new Cesium.Credit('NASA Night Lights 2012', '', '')
         });
     }
@@ -55,7 +55,7 @@ function addAdditionalLayerOption(name, imageryProvider, alpha, contrast, show) 
     return layer;
 }
 var tmsProvider = Cesium.createTileMapServiceImageryProvider({
-    url: 'http://texshaded-cgiar-90m.s3-website.us-east-2.amazonaws.com/texshade/world-tex-cgiar-90m',
+    url: '//d2i33ldayhex0u.cloudfront.net/world-tex-cgiar-90m',
     credit: new Cesium.Credit('Ahmed Fasih, CGIAR-SRTM 90m'),
     flipXY: true
 });
