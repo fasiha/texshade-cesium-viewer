@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Fractional Laplacial Elevation Texture Shading</title>
+  <style>
+    @import url(Build/Cesium/Widgets/widgets.css);
+    @import url(Build/Cesium/Widgets/lighter.css);
+    @import url(bucket.css);
+
+    html,
+    body,
+    #cesiumContainer {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    #toolbar {
+      background: rgba(42, 42, 42, 0.8);
+      padding: 4px;
+      border-radius: 4px;
+      color: rgb(200, 200, 200);
+    }
+
+    #toolbar input {
+      vertical-align: middle;
+      padding-top: 2px;
+      padding-bottom: 2px;
+    }
+
+    #toolbar a {
+      color: rgb(240, 240, 240);
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div id="cesiumContainer" class="fullSize"></div>
+
+  <div id="toolbar">
+    <a href="http://fasiha.github.io/texshade/">Help</a>・
+    <a href="https://cesiumjs.org/">Cesium.js</a>・
+    <a href="http://textureshading.com/Home.html">Texture shading</a>・
+    <a href="http://www.cgiar-csi.org/data/srtm-90m-digital-elevation-database-v4-1">CGIAR-SRTM</a>
+    <table>
+      <tbody>
+        <tr>
+          <td>Base Brightness</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: brightness, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: brightness">
+          </td>
+        </tr>
+        <tr>
+          <td>Base Contrast</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: contrast, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: contrast">
+          </td>
+        </tr>
+        <tr>
+          <td>Base Hue</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: hue, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: hue">
+          </td>
+        </tr>
+        <tr>
+          <td>Base Saturation</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: saturation, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: saturation">
+          </td>
+        </tr>
+        <tr>
+          <td>Base Gamma</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: gamma, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: gamma">
+          </td>
+        </tr>
+
+        <tr>
+          <td>Tex Brightness</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: texbrightness, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: texbrightness">
+          </td>
+        </tr>
+        <tr>
+          <td>Tex Contrast</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: texcontrast, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: texcontrast">
+          </td>
+        </tr>
+        <tr>
+          <td>Tex Gamma</td>
+          <td>
+            <input type="range" min="0" max="3" step="0.02" data-bind="value: texgamma, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: texgamma">
+          </td>
+        </tr>
+        <tr>
+          <td>Tex Alpha</td>
+          <td>
+            <input type="range" min="0" max="1.1" step="0.02" data-bind="value: texalpha, valueUpdate: 'input'">
+            <input type="text" size="5" data-bind="value: texalpha">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      Camera:
+      <span data-bind="text: displayCameraLatLon(cameraLat, cameraLon)">Lat-lon</span>. Height:
+      <span data-bind="text: displayCameraHeight(cameraHeight)">.</p>
+    <button id="permalink-button" data-bind="click: serializeView">Permalink</button>
+  </div>
+
+  <script src="Build/Cesium/Cesium.js"></script>
+  <script src="lodash.min.js"></script>
+  <script src="texshade.js" async></script>
+</body>
+
+</html>
