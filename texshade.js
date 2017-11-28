@@ -1,5 +1,9 @@
 "use strict";
 
+Cesium.MapboxApi.defaultAccessToken = 'pk.eyJ1IjoiYWxkZWJybiIsImEiOiJjaWk2dXhpZWowMXU4dHdrZmZobDlvMzh2In0.dc7AbJYbRmEXBUWA3lgygQ';
+Cesium.BingMapsApi.defaultKey = 'AtxCXVrmWBEbPPkiEssyaXHct5S9N9-vAJnHEVrV5vVpvDFLsENIXMfu8nekFrZn';
+
+// Does the URL have an object encoded in it?
 var savedParametersObj = undefined;
 if (window.location.hash.length > 0) {
     try {
@@ -11,10 +15,28 @@ if (window.location.hash.length > 0) {
     }
 }
 
-Cesium.MapboxApi.defaultAccessToken = 'pk.eyJ1IjoiYWxkZWJybiIsImEiOiJjaWk2dXhpZWowMXU4dHdrZmZobDlvMzh2In0.dc7AbJYbRmEXBUWA3lgygQ';
-Cesium.BingMapsApi.defaultKey = 'AtxCXVrmWBEbPPkiEssyaXHct5S9N9-vAJnHEVrV5vVpvDFLsENIXMfu8nekFrZn';
+// The Black Marble model from Cesium (https://cesiumjs.org/data-and-assets/imagery/black-marble/)
+// is sometimes blocked due to CORS, so load it from GitHub Pages.
+var models = Cesium.createDefaultImageryProviderViewModels()
+    .filter(function (model) {
+        return model.name.toLowerCase().indexOf('black marble') < 0;
+    });
+var model = new Cesium.ProviderViewModel({
+    name: "Black Marble Night Lights",
+    iconUrl: "Build/Cesium/Widgets/Images/ImageryProviders/blackMarble.png",
+    tooltip: "Nighttime view of the Earth, collected by the Suomi NPP satellite in 2012",
+    creationFunction: function () {
+        return Cesium.createTileMapServiceImageryProvider({
+            url: 'https://fasiha.github.io/nasa-black-marble-tiles',
+            credit: new Cesium.Credit('NASA Night Lights 2012', '', '')
+        });
+    }
+});
+models.push(model);
 
+// Initialize the viewer
 var viewer = new Cesium.Viewer('cesiumContainer', {
+    imageryProviderViewModels: models,
     contextOptions: { webgl: { preserveDrawingBuffer: true } },
     animation: false,
     timeline: false,
@@ -32,7 +54,6 @@ function addAdditionalLayerOption(name, imageryProvider, alpha, contrast, show) 
     Cesium.knockout.track(layer, ['alpha', 'show', 'name']);
     return layer;
 }
-
 var tmsProvider = Cesium.createTileMapServiceImageryProvider({
     url: 'world-tex-cgiar-90m',
     credit: new Cesium.Credit('Ahmed Fasih, CGIAR-SRTM 90m'),
@@ -40,7 +61,7 @@ var tmsProvider = Cesium.createTileMapServiceImageryProvider({
 });
 var tms = addAdditionalLayerOption('TMS', tmsProvider, 0.75, 1.4);
 
-// Useful
+// Set up the Knockout part of the app, controlling texture and basemap colors
 // The viewModel tracks the state of our mini application.
 var viewModel = {
     brightness: 0,
