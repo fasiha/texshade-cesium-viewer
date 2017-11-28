@@ -55,7 +55,7 @@ function addAdditionalLayerOption(name, imageryProvider, alpha, contrast, show) 
     return layer;
 }
 var tmsProvider = Cesium.createTileMapServiceImageryProvider({
-    url: 'world-tex-cgiar-90m',
+    url: 'http://texshaded-cgiar-90m.s3-website.us-east-2.amazonaws.com/texshade/world-tex-cgiar-90m',
     credit: new Cesium.Credit('Ahmed Fasih, CGIAR-SRTM 90m'),
     flipXY: true
 });
