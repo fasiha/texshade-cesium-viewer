@@ -1,8 +1,5 @@
 "use strict";
 
-Cesium.MapboxApi.defaultAccessToken = 'pk.eyJ1IjoiYWxkZWJybiIsImEiOiJjaWk2dXhpZWowMXU4dHdrZmZobDlvMzh2In0.dc7AbJYbRmEXBUWA3lgygQ';
-Cesium.BingMapsApi.defaultKey = 'AtxCXVrmWBEbPPkiEssyaXHct5S9N9-vAJnHEVrV5vVpvDFLsENIXMfu8nekFrZn';
-
 // Does the URL have an object encoded in it?
 var savedParametersObj = undefined;
 if (window.location.hash.length > 0) {
@@ -19,7 +16,8 @@ if (window.location.hash.length > 0) {
 // is sometimes blocked due to CORS, so load it from GitHub Pages.
 var models = Cesium.createDefaultImageryProviderViewModels()
     .filter(function (model) {
-        return model.name.toLowerCase().indexOf('black marble') < 0;
+        var name = model.name.toLowerCase();
+        return name.indexOf('black marble') < 0 && name.indexOf('bing') < 0 && name.indexOf('mapbox') < 0;
     });
 var model = new Cesium.ProviderViewModel({
     name: "Black Marble Night Lights",
