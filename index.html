@@ -11,9 +11,7 @@
     @import url(Build/Cesium/Widgets/lighter.css);
     @import url(bucket.css);
 
-    html,
-    body,
-    #cesiumContainer {
+    html, body, #cesiumContainer {
       width: 100%;
       height: 100%;
       margin: 0;
@@ -26,105 +24,120 @@
       padding: 4px;
       border-radius: 4px;
       color: rgb(200, 200, 200);
+      max-width: min(340px, 90vw);
+      box-sizing: border-box;
     }
 
-    #toolbar input {
+    #toolbar table {
+      border-collapse: collapse;
+    }
+
+    #toolbar td:first-child {
+      white-space: nowrap;
+      padding-right: 4px;
+    }
+
+    #toolbar input[type="range"] {
+      width: 5rem;
       vertical-align: middle;
-      padding-top: 2px;
-      padding-bottom: 2px;
+    }
+
+    #toolbar input[type="number"] {
+      width: 3.5rem;
+      vertical-align: middle;
     }
 
     #toolbar a {
       color: rgb(240, 240, 240);
+    }
+
+    #toolbar p.camera {
+      width: 0;
+      min-width: 100%;
+    }
+
+    #permalink-button.copied {
+      background: #4a4;
     }
   </style>
 </head>
 
 <body>
 
-
   <div id="cesiumContainer" class="fullSize"></div>
 
   <div id="toolbar">
     <details open>
       <summary>Controls</summary>
-      <a href="http://fasiha.github.io/texshade/">Help</a>・
-      <a href="https://cesiumjs.org/">Cesium.js</a>・
-      <a href="http://textureshading.com/Home.html">Texture shading</a>・
-      <a href="http://www.cgiar-csi.org/data/srtm-90m-digital-elevation-database-v4-1">CGIAR-SRTM</a>
+      <details>
+        <summary>Links</summary>
+        <a href="http://fasiha.github.io/texshade/">Help</a>・
+        <a href="https://cesiumjs.org/">Cesium.js</a>・
+        <a href="http://textureshading.com/Home.html">Texture shading</a>・
+        <a href="http://www.cgiar-csi.org/data/srtm-90m-digital-elevation-database-v4-1">CGIAR-SRTM</a>
+      </details>
       <table>
         <tbody>
           <tr>
             <td>Base Brightness</td>
             <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: brightness, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: brightness">
+              <input type="range" min="0" max="3" step="0.02" data-param="brightness" data-layer="base">
+              <input type="number" min="0" max="3" step="0.02" data-param="brightness" data-layer="base">
             </td>
           </tr>
           <tr>
             <td>Base Contrast</td>
             <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: contrast, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: contrast">
-            </td>
-          </tr>
-          <tr>
-            <td>Base Hue</td>
-            <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: hue, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: hue">
+              <input type="range" min="0" max="3" step="0.02" data-param="contrast" data-layer="base">
+              <input type="number" min="0" max="3" step="0.02" data-param="contrast" data-layer="base">
             </td>
           </tr>
           <tr>
             <td>Base Saturation</td>
             <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: saturation, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: saturation">
+              <input type="range" min="0" max="3" step="0.02" data-param="saturation" data-layer="base">
+              <input type="number" min="0" max="3" step="0.02" data-param="saturation" data-layer="base">
             </td>
           </tr>
           <tr>
             <td>Base Gamma</td>
             <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: gamma, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: gamma">
+              <input type="range" min="0" max="3" step="0.02" data-param="gamma" data-layer="base">
+              <input type="number" min="0" max="3" step="0.02" data-param="gamma" data-layer="base">
             </td>
           </tr>
-
           <tr>
             <td>Tex Brightness</td>
             <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: texbrightness, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: texbrightness">
+              <input type="range" min="0" max="3" step="0.02" data-param="brightness" data-layer="tex">
+              <input type="number" min="0" max="3" step="0.02" data-param="brightness" data-layer="tex">
             </td>
           </tr>
           <tr>
             <td>Tex Contrast</td>
             <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: texcontrast, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: texcontrast">
+              <input type="range" min="0" max="3" step="0.02" data-param="contrast" data-layer="tex">
+              <input type="number" min="0" max="3" step="0.02" data-param="contrast" data-layer="tex">
             </td>
           </tr>
           <tr>
             <td>Tex Gamma</td>
             <td>
-              <input type="range" min="0" max="3" step="0.02" data-bind="value: texgamma, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: texgamma">
+              <input type="range" min="0" max="3" step="0.02" data-param="gamma" data-layer="tex">
+              <input type="number" min="0" max="3" step="0.02" data-param="gamma" data-layer="tex">
             </td>
           </tr>
           <tr>
             <td>Tex Alpha</td>
             <td>
-              <input type="range" min="0" max="1.1" step="0.02" data-bind="value: texalpha, valueUpdate: 'input'">
-              <input type="text" size="5" data-bind="value: texalpha">
+              <input type="range" min="0" max="1.1" step="0.02" data-param="alpha" data-layer="tex">
+              <input type="number" min="0" max="1.1" step="0.02" data-param="alpha" data-layer="tex">
             </td>
           </tr>
         </tbody>
       </table>
-      <p>
-        Camera:
-        <span data-bind="text: displayCameraLatLon(cameraLat, cameraLon)">Lat-lon</span>. Height:
-        <span data-bind="text: displayCameraHeight(cameraHeight)">.</p>
-          <button id="permalink-button" data-bind="click: serializeView">Permalink</button>
+      <p class="camera">Camera: <span id="camera-latlonheight"></span></p>
+      <button id="permalink-button">Permalink</button>
     </details>
   </div>
 
